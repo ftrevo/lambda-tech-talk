@@ -1,0 +1,27 @@
+service: lambda-techtalk-genre-service
+
+provider: 
+  name: aws
+  runtime: nodejs6.10
+  environment:
+    DB_URI: ${file(node_modules/lambda-techtalk-shared-libs/env.yml):DB_URI}
+    MONGOOSE_DEBUG: ${file(node_modules/lambda-techtalk-shared-libs/env.yml):MONGOOSE_DEBUG}
+    APP_SECRET: ${file(node_modules/lambda-techtalk-shared-libs/env.yml):APP_SECRET}
+    AWS_S3_BUCKET_NAME: ${file(node_modules/lambda-techtalk-shared-libs/env.yml):AWS_S3_BUCKET_NAME}
+
+plugins:
+  - serverless-offline
+
+functions: ${file(genre-functions.yml)}
+
+resources:
+		  Resources:
+		    GatewayResponseDefault4XX:
+		      Type: 'AWS::ApiGateway::GatewayResponse'
+		      Properties:
+		        ResponseParameters:
+           gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+           gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+		        ResponseType: DEFAULT_4XX
+		        RestApiId:
+		          Ref: 'ApiGatewayRestApi'

@@ -1,0 +1,85 @@
+#################### GERAIS ####################
+
+authorizer-admin-lambda:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.admininvoke
+
+authorizer-lambda:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.invoke 
+
+login:
+  handler: login.invoke
+  events:
+    - http:
+        path: /users/login
+        method: post
+        cors:
+          origin: '*'
+          headers:
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+
+#################### USER ####################
+
+user-create:
+  handler: user-create.invokeUser
+  events:
+    - http:
+        path: /users
+        method: post
+        cors:
+          origin: '*'
+
+user-read:
+  handler: user-read.invoke
+  events:
+    - http:
+        path: /users
+        method: get
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+user-update:
+  handler: user-update.invoke
+  events:
+    - http:
+        path: /users/{id}
+        method: put
+        cors:
+          origin: '*'
+        authorizer: authorizer-lambda
+
+user-delete:
+  handler: user-delete.invoke
+  events:
+    - http:
+        path: /users/{id}
+        method: delete
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+        
+user-detail:
+  handler: user-detail.invoke
+  events:
+    - http:
+        path: /users/{id}
+        method: get
+        cors:
+          origin: '*'
+        authorizer: authorizer-lambda
+
+admin-create:
+  handler: user-create.invokeAdmin
+  events:
+    - http:
+        path: /users/admin
+        method: post
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda

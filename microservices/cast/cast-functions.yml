@@ -1,0 +1,53 @@
+#################### GERAIS ####################
+authorizer-admin-lambda:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.admininvoke
+
+#################### Cast ####################
+
+cast-create:
+  handler: cast-create.invoke
+  events:
+    - http:
+        path: /casts
+        method: post
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+cast-read:
+  handler: cast-read.invoke
+  events:
+    - http:
+        path: /casts
+        method: get
+        cors:
+          origin: '*'
+
+cast-detail:
+  handler: cast-detail.invoke
+  events:
+    - http:
+        path: /casts/{id}
+        method: get
+        cors:
+          origin: '*'
+
+cast-update:
+  handler: cast-update.invoke
+  events:
+    - http:
+        path: /casts/{id}
+        method: put
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+cast-type-delete:
+  handler: cast-delete.invoke
+  events:
+    - http:
+        path: /casts/{id}
+        method: delete
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda

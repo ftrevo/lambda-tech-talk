@@ -1,0 +1,53 @@
+#################### GERAIS ####################
+authorizer-admin-lambda:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.admininvoke
+
+#################### Production ####################
+
+production-create:
+  handler: production-create.invoke
+  events:
+    - http:
+        path: /productions
+        method: post
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+production-read:
+  handler: production-read.invoke
+  events:
+    - http:
+        path: /productions
+        method: get
+        cors:
+          origin: '*'
+
+production-detail:
+  handler: production-detail.invoke
+  events:
+    - http:
+        path: /productions/{id}
+        method: get
+        cors:
+          origin: '*'
+
+production-update:
+  handler: production-update.invoke
+  events:
+    - http:
+        path: /productions/{id}
+        method: put
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+production-delete:
+  handler: production-delete.invoke
+  events:
+    - http:
+        path: /productions/{id}
+        method: delete
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda

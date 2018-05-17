@@ -1,0 +1,53 @@
+#################### GERAIS ####################
+authorizer-admin-lambda:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.admininvoke
+
+#################### Genre ####################
+
+genre-create:
+  handler: genre-create.invoke
+  events:
+    - http:
+        path: /genres
+        method: post
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+genre-read:
+  handler: genre-read.invoke
+  events:
+    - http:
+        path: /genres
+        method: get
+        cors:
+          origin: '*'
+
+genre-detail:
+  handler: genre-detail.invoke
+  events:
+    - http:
+        path: /genres/{id}
+        method: get
+        cors:
+          origin: '*'
+
+genre-update:
+  handler: genre-update.invoke
+  events:
+    - http:
+        path: /genres/{id}
+        method: put
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda
+
+genre-type-delete:
+  handler: genre-delete.invoke
+  events:
+    - http:
+        path: /genres/{id}
+        method: delete
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin-lambda

@@ -1,0 +1,19 @@
+service: express-app
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-east-1
+  environment:
+      AWS_S3_BUCKET_URL: INSERT_BUCKET_URL_HERE
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+plugins:
+  - serverless-offline

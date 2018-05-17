@@ -1,0 +1,53 @@
+#################### GERAIS ####################
+authorizer-admin:
+  handler: node_modules/lambda-techtalk-shared-libs/middleware/authorizer.admininvoke
+
+#################### Audiovisual Type ####################
+
+audiovisual-type-create:
+  handler: audiovisual-type-create.invoke
+  events:
+    - http:
+        path: /audiovisual-types
+        method: post
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin
+
+audiovisual-type-read:
+  handler: audiovisual-type-read.invoke
+  events:
+    - http:
+        path: /audiovisual-types
+        method: get
+        cors:
+          origin: '*'
+
+audiovisual-type-detail:
+  handler: audiovisual-type-detail.invoke
+  events:
+    - http:
+        path: audiovisual-types/{id}
+        method: get
+        cors:
+          origin: '*'
+
+audiovisual-type-update:
+  handler: audiovisual-type-update.invoke
+  events:
+    - http:
+        path: audiovisual-types/{id}
+        method: put
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin
+
+audiovisual-type-delete:
+  handler: audiovisual-type-delete.invoke
+  events:
+    - http:
+        path: audiovisual-types/{id}
+        method: delete
+        cors:
+          origin: '*'
+        authorizer: authorizer-admin

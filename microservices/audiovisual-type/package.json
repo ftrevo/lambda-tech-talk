@@ -1,0 +1,21 @@
+{
+  "name": "lambda-techtalk",
+  "version": "1.0.0",
+  "description": "Lambda TechTalk",
+  "repository": {
+    "type": "git",
+    "url": "-"
+  },
+  "scripts": {
+    "deploy": "echo \"Iniciando deploy Audiovisual-Type microservice\" && npm install && sls deploy && echo \"Finalizando deploy Audiovisual-Type microservice\""
+  },
+  "author": "Felipe Trevisan",
+  "license": "ISC",
+  "dependencies": {
+    "lambda-techtalk-shared-libs": "file:../../lambda-techtalk-shared-libs"
+  },
+  "devDependencies": {
+    "serverless": "^1.26.1",
+    "serverless-offline": "^3.18.0"
+  }
+}
